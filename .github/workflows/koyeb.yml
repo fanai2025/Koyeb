@@ -4,8 +4,8 @@ on:
     branches: [ main ]
     paths:
       - 'Dockerfile'
-      - 'index.js'
-      - 'package.json'
+      - 'entrypoint.sh'
+      - 'nginx.conf'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
