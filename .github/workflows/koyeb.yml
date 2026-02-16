@@ -1,8 +1,15 @@
-name: "Build and push images"
 
 on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Dockerfile'
+      - 'index.js'
+      - 'package.json'
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,7 +17,7 @@ jobs:
       contents: read
       packages: write
 
-      steps:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -27,6 +34,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
-          platforms: linux/amd64
-          tags: ${{ env.DOCKERHUB_REPOSITORY }}
+          platforms: linux/amd64,linux/arm64
+          tags: koyeb1
